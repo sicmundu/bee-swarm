@@ -1,17 +1,25 @@
 #!/bin/bash
 homedir=$HOME
+
 echo 'Установка пакетов'
+
 sudo apt-get update
 sudo apt -y install curl
 sudo apt -y install wget
 sudo apt -y install tmux
 sudo apt -y install jq
+
 echo 'Установка Swarm Bee'
+
 curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.0 bash
+
 echo 'Установка Bee Clef'
+
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb
 sudo dpkg -i bee-clef_0.4.7_amd64.deb
+
 echo 'Создание конфига'
+
 echo "api-addr: :1633
 bootnode:
 - /dnsaddr/bootnode.ethswarm.org
