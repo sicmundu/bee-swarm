@@ -1,6 +1,5 @@
 #!/bin/bash
 homedir=$HOME
-
 echo 'Установка пакетов'
 sudo apt-get update
 sudo apt -y install curl
