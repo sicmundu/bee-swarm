@@ -43,6 +43,6 @@ tracing-service-name: bee
 verbosity: info
 welcome-message: ""
 " >> bee-config.yaml
-wget https://gpostrelov.ru/cashout.sh
+wget https://github.com/grodstrike/bee-swarm/blob/main/cashout.sh
 wget https://gpostrelov.ru/keys.sh
 bee start --config bee-config.yaml
