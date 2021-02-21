@@ -1,4 +1,5 @@
 #!/bin/bash
+homedir=$HOME
 echo 'Установка пакетов'
 sudo apt-get update
 sudo apt -y install curl
@@ -53,7 +54,7 @@ chmod 777 cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "0 */6 * * * /bin/bash ~/cashout.sh cashout-all » ~/cash.log   2>&1 " >> mycron
+echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
 #install new cron file
 crontab mycron
 rm mycron
