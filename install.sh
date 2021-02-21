@@ -66,6 +66,7 @@ sudo echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cas
 #install new cron file
 crontab mycron
 rm mycron
+sudo systemctl restart cron
 echo 'Запуск ноды'
 tmux new -d -s bee
 tmux send-keys -t bee.0 "sudo bee start --config bee-config.yaml" ENTER
