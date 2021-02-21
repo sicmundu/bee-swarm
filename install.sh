@@ -59,5 +59,5 @@ crontab mycron
 rm mycron
 echo 'Запуск ноды'
 tmux new -d -s bee
-tmux send-keys -t bee.0 "bee start --config bee-config.yaml" ENTER
+tmux send-keys -t bee.0 "sudo su bee start --config bee-config.yaml" ENTER
 tmux a -t bee
