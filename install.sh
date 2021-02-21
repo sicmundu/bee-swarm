@@ -49,7 +49,7 @@ verbosity: info
 welcome-message: ""
 " >> bee-config.yaml
 echo 'Установка скрипта для обналичивания чеков'
-wget https://github.com/grodstrike/bee-admin/raw/main/cashout.sh ~/cashout.sh
+wget https://github.com/grodstrike/bee-admin/raw/main/cashout.sh $homedir/cashout.sh
 chmod 777 cashout.sh
 #write out current crontab
 crontab -l > mycron
