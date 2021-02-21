@@ -55,11 +55,11 @@ chmod 777 cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-sudo su echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
+sudo echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
 #install new cron file
 crontab mycron
 rm mycron
 echo 'Запуск ноды'
 tmux new -d -s bee
-tmux send-keys -t bee.0 "sudo su bee start --config bee-config.yaml" ENTER
+tmux send-keys -t bee.0 "sudo bee start --config bee-config.yaml" ENTER
 tmux a -t bee
