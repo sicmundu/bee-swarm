@@ -57,12 +57,12 @@ verbosity: info
 welcome-message: ""
 " >> bee-config.yaml
 echo 'Установка скрипта для обналичивания чеков'
-sudo wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh /root/cashout.sh
-sudo chmod 777 /root/cashout.sh
+wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh
+sudo chmod 777 $homedir/cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-sudo echo "0 */6 * * * /bin/bash /root/cashout.sh cashout-all >> /root/cash.log   2>&1 " >> mycron
+sudo echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
 #install new cron file
 crontab mycron
 rm mycron
