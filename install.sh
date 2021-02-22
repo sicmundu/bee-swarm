@@ -62,7 +62,7 @@ sudo chmod 777 /root/cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-sudo echo "0 */6 * * * /bin/bash /root/cashout.sh cashout-all » /root/cash.log   2>&1 " >> mycron
+sudo echo "0 */6 * * * /bin/bash /root/cashout.sh cashout-all >> /root/cash.log   2>&1 " >> mycron
 #install new cron file
 crontab mycron
 rm mycron
