@@ -18,6 +18,8 @@ echo 'Установка Bee Clef'
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb
 sudo dpkg -i bee-clef_0.4.7_amd64.deb
 
+rm bee-clef_0.4.7_amd64.deb
+
 echo 'Создание конфига'
 
 echo "api-addr: :1633
