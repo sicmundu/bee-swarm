@@ -75,7 +75,7 @@ welcome-message: ""
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
-wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh /root/cashout.sh
+wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh && cp cashout.sh /root/cashout.sh
 sudo chmod 777 /root/cashout.sh
 #write out current crontab
 crontab -l > mycron
@@ -86,7 +86,7 @@ crontab mycron
 rm mycron
 sudo systemctl restart cron
 
-
+date "+【%Y-%m-%d %H:%M:%S】 'Установка сервиса Swarm Bee" 2>&1 | tee -a /root/run.log
 echo "
 [Unit]
 Description=Bee Bzz Bzzzzz service
@@ -105,8 +105,10 @@ systemctl daemon-reload
 systemctl enable bee
 systemctl start bee
 
-echo -e "\e[42mУстановка завершена.\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat /root/bee-pass.txt && echo '' && echo 'Хранится по пути: /root/bee-pass.txt'
-echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22' && echo 'Ваш ETH кошелёк ноды: ' && curl -s localhost:1635/addresses | jq .ethereum
+echo ''
+echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat /root/bee-pass.txt && echo '' && echo 'Хранится по пути: /root/bee-pass.txt'
+echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
 echo ''
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
+echo ''
 
