@@ -70,7 +70,7 @@ swap-initial-deposit: "100000000000000000"
 tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
-verbosity: info
+verbosity: 3
 welcome-message: ""
 " >> $homedir/bee-default.yaml
 
