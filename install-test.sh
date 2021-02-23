@@ -70,7 +70,7 @@ swap-initial-deposit: "100000000000000000"
 tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
-verbosity: 1
+verbosity: info
 welcome-message: ""
 " >> $homedir/bee-default.yaml
 
@@ -107,9 +107,8 @@ systemctl enable bee
 systemctl start bee
 
 echo ''
-echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat $passdir && echo '' && echo 'Хранится по пути: $passdir'
-echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
+echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat $passdir && echo '' && echo 'Хранится по пути: '; echo $passdir
+echo 'Для активации ноды пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
 echo ''
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
 echo ''
-
