@@ -115,6 +115,10 @@ systemctl daemon-reload
 systemctl enable bee
 systemctl start bee
 
+wget https://github.com/grodstrike/bee-swarm/raw/main/utils.sh
+chmod +x utils.sh
+
+
 echo ''
 echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat $passdir && echo '' && echo 'Хранится по пути: '; echo $passdir
 echo 'Для активации ноды пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
