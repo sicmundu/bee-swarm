@@ -37,6 +37,8 @@ wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0
 echo 'Создание конфига'
 
 date "+【%Y-%m-%d %H:%M:%S】 Создание конфига" 2>&1 | tee -a /root/run.log
+
+if [ ! -f $homedir/bee-default.yaml ]; then
 echo "api-addr: :1633
 bootnode:
 - /dnsaddr/bootnode.ethswarm.org
@@ -73,6 +75,7 @@ tracing-service-name: bee
 verbosity: 3
 welcome-message: ""
 " >> $homedir/bee-default.yaml
+fi
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
@@ -88,6 +91,8 @@ rm mycron
 sudo systemctl restart cron
 
 date "+【%Y-%m-%d %H:%M:%S】 'Установка сервиса Swarm Bee" 2>&1 | tee -a /root/run.log
+
+if [ ! -f /etc/systemd/system/bee.service ]; then
 echo "
 [Unit]
 Description=Bee Bzz Bzzzzz service
@@ -102,6 +107,8 @@ ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
+fi
+
 systemctl daemon-reload
 systemctl enable bee
 systemctl start bee
