@@ -37,11 +37,13 @@ wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0
 echo 'Создание конфига'
 
 date "+【%Y-%m-%d %H:%M:%S】 Создание конфига" 2>&1 | tee -a /root/run.log
+
+if [ ! -f $homedir/bee-default.yaml ]; then
 echo "api-addr: :1633
 bootnode:
 - /dnsaddr/bootnode.ethswarm.org
-clef-signer-enable: false
-clef-signer-endpoint: ""
+clef-signer-enable: true
+clef-signer-endpoint: "/var/lib/bee-clef/clef.ipc"
 config: /root/.bee.yaml
 cors-allowed-origins: []
 data-dir: /root/.bee
@@ -70,9 +72,11 @@ swap-initial-deposit: "100000000000000000"
 tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
-verbosity: info
+verbosity: 3
 welcome-message: ""
 " >> $homedir/bee-default.yaml
+else date "+【%Y-%m-%d %H:%M:%S】 'Уже есть конфиг" 2>&1 | tee -a /root/run.log
+fi
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
@@ -88,6 +92,8 @@ rm mycron
 sudo systemctl restart cron
 
 date "+【%Y-%m-%d %H:%M:%S】 'Установка сервиса Swarm Bee" 2>&1 | tee -a /root/run.log
+
+if [ ! -f /etc/systemd/system/bee.service ]; then
 echo "
 [Unit]
 Description=Bee Bzz Bzzzzz service
@@ -102,6 +108,9 @@ ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
+else date "+【%Y-%m-%d %H:%M:%S】 'Уже есть сервис" 2>&1 | tee -a /root/run.log
+fi
+
 systemctl daemon-reload
 systemctl enable bee
 systemctl start bee
