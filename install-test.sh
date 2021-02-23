@@ -69,7 +69,7 @@ tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
 verbosity: 1
 welcome-message: ""
-" >> $homedir/bee-config.yaml
+" >> $homedir/bee-default.yaml
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
@@ -95,7 +95,7 @@ Type=simple
 Restart=always
 RestartSec=60
 User=root
-ExecStart=/usr/local/bin/bee start --config $homedir/bee-config.yaml --password-file /root/bee-pass.txt
+ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml --password-file /root/bee-pass.txt
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
@@ -103,4 +103,7 @@ systemctl daemon-reload
 systemctl enable bee
 systemctl start bee
 
-echo 'Установка завершена. Ваш пароль от ноды:' && cat /root/bee-pass.txt
+echo -e "\e[42mУстановка завершена.\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat /root/bee-pass.txt && echo '' && echo 'Хранится по пути: /root/bee-pass.txt'
+echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
+echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
+
