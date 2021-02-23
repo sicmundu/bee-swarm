@@ -12,6 +12,7 @@ homedir=$HOME
 if [ ! -f /root/mypass.txt ]; then
 	date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
 	echo head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 > /root/bee-pass.txt;
+	date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat /root/bee-pass.txt  2>&1 | tee -a /root/run.log
 fi
 
 echo 'Установка пакетов'
@@ -66,9 +67,9 @@ swap-initial-deposit: "100000000000000000"
 tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
-verbosity: info
+verbosity: 1
 welcome-message: ""
-" >> bee-config.yaml
+" >> $homedir/bee-config.yaml
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
@@ -100,4 +101,6 @@ WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
 systemctl daemon-reload
 systemctl enable bee
+systemctl start bee
 
+echo 'Установка завершена. Ваш пароль от ноды:' && cat /root/bee-pass.txt

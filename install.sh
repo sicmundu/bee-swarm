@@ -56,7 +56,7 @@ tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
 verbosity: info
 welcome-message: ""
-" >> bee-config.yaml
+" >> $homedir/bee-default.yaml
 echo 'Установка скрипта для обналичивания чеков'
 wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh && chmod a+x cashout.sh
 
@@ -70,5 +70,5 @@ rm mycron
 sudo systemctl restart cron
 echo 'Запуск ноды'
 tmux new -d -s bee
-tmux send-keys -t bee.0 "sudo bee start --config bee-config.yaml" ENTER
+tmux send-keys -t bee.0 "sudo bee start --config $homedir/bee-default.yaml" ENTER
 tmux a -t bee
