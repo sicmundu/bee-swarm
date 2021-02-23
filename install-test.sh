@@ -1,25 +1,38 @@
 #!/bin/bash
+
+# Check if user is root
+if [ $(id -u) != "0" ]; then
+    echo "Ошибка: Вы должны быть root, чтобы запустить этот скрипт. (Введите: sudo su)"
+    exit 1
+fi
+
+
 homedir=$HOME
+
+if [ ! -f /root/mypass.txt ]; then
+	date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
+	echo head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 > /root/bee-pass.txt;
+fi
 
 echo 'Установка пакетов'
 
+date "+【%Y-%m-%d %H:%M:%S】 Установка пакетов" 2>&1 | tee -a /root/run.log
 sudo apt-get update
-sudo apt -y install curl
-sudo apt -y install wget
-sudo apt -y install tmux
-sudo apt -y install jq
+sudo apt -y install curl wget tmux jq
 
 echo 'Установка Swarm Bee'
 
+date "+【%Y-%m-%d %H:%M:%S】 Swarm Bee" 2>&1 | tee -a /root/run.log
 curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.0 bash
 
 echo 'Установка Bee Clef'
 
-wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb
-sudo dpkg -i bee-clef_0.4.7_amd64.deb
+date "+【%Y-%m-%d %H:%M:%S】 Bee Clef" 2>&1 | tee -a /root/run.log
+wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
 echo 'Создание конфига'
 
+date "+【%Y-%m-%d %H:%M:%S】 Создание конфига" 2>&1 | tee -a /root/run.log
 echo "api-addr: :1633
 bootnode:
 - /dnsaddr/bootnode.ethswarm.org
@@ -56,18 +69,35 @@ tracing-service-name: bee
 verbosity: info
 welcome-message: ""
 " >> bee-config.yaml
+
 echo 'Установка скрипта для обналичивания чеков'
+date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
 wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh
 sudo chmod 777 $homedir/cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-sudo echo "0 * * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
+echo "*/5 * * * * /bin/bash $homedir/cashout.sh cashout-all >> $homedir/cash.log >/dev/null 2>&1" >> mycron
 #install new cron file
 crontab mycron
 rm mycron
 sudo systemctl restart cron
-echo 'Запуск ноды'
-tmux new -d -s bee
-tmux send-keys -t bee.0 "sudo bee start --config bee-config.yaml" ENTER
-tmux a -t bee
+
+
+echo "
+[Unit]
+Description=Bee Bzz Bzzzzz service
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=60
+User=root
+ExecStart=/usr/local/bin/bee start --config $homedir/bee-config.yaml --password-file /root/bee-pass.txt
+[Install]
+WantedBy=multi-user.target
+" >> /etc/systemd/system/bee.service
+systemctl daemon-reload
+systemctl enable bee
+

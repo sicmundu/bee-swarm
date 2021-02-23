@@ -15,8 +15,7 @@ curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TA
 
 echo 'Установка Bee Clef'
 
-wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb
-sudo dpkg -i bee-clef_0.4.7_amd64.deb
+wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
 rm bee-clef_0.4.7_amd64.deb
 
@@ -59,12 +58,12 @@ verbosity: info
 welcome-message: ""
 " >> bee-config.yaml
 echo 'Установка скрипта для обналичивания чеков'
-wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh
-sudo chmod 777 $homedir/cashout.sh
+wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh && chmod a+x cashout.sh
+
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-sudo echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all » $homedir/cash.log   2>&1 " >> mycron
+sudo echo "0 */6 * * * /bin/bash $homedir/cashout.sh cashout-all >> $homedir/cash.log   2>&1 " >> mycron
 #install new cron file
 crontab mycron
 rm mycron
