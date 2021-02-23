@@ -8,13 +8,14 @@ fi
 
 
 homedir=$HOME
+passdir='/root/bee-pass.txt'
 
-if [ ! -f /root/mypass.txt ]; then
+if [ ! -f $passdir ]; then
 	date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
-	echo "Введите пароль для ноды (он будет хранится тут /root/bee-pass.txt):"
+	echo "Введите пароль для ноды (он будет хранится тут $passdir):"
 	read  n
-	echo  $n > /root/bee-pass.txt;
-	date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat /root/bee-pass.txt  2>&1 | tee -a /root/run.log
+	echo  $n > $passdir;
+	date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat $passdir  2>&1 | tee -a /root/run.log
 fi
 
 echo 'Установка пакетов'
@@ -106,7 +107,7 @@ systemctl enable bee
 systemctl start bee
 
 echo ''
-echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat /root/bee-pass.txt && echo '' && echo 'Хранится по пути: /root/bee-pass.txt'
+echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat $passdir && echo '' && echo 'Хранится по пути: $passdir'
 echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
 echo ''
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
