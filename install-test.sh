@@ -11,7 +11,9 @@ homedir=$HOME
 
 if [ ! -f /root/mypass.txt ]; then
 	date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
-	echo head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 > /root/bee-pass.txt;
+	echo "Введите пароль для ноды (он будет хранится тут /root/bee-pass.txt):"
+	read  n
+	echo  $n > /root/bee-pass.txt;
 	date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat /root/bee-pass.txt  2>&1 | tee -a /root/run.log
 fi
 
@@ -23,12 +25,12 @@ sudo apt -y install curl wget tmux jq
 
 echo 'Установка Swarm Bee'
 
-date "+【%Y-%m-%d %H:%M:%S】 Swarm Bee" 2>&1 | tee -a /root/run.log
+date "+【%Y-%m-%d %H:%M:%S】 Установка Swarm Bee" 2>&1 | tee -a /root/run.log
 curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.0 bash
 
 echo 'Установка Bee Clef'
 
-date "+【%Y-%m-%d %H:%M:%S】 Bee Clef" 2>&1 | tee -a /root/run.log
+date "+【%Y-%m-%d %H:%M:%S】 Установка Bee Clef" 2>&1 | tee -a /root/run.log
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
 echo 'Создание конфига'
@@ -54,7 +56,7 @@ p2p-addr: :1634
 p2p-quic-enable: false
 p2p-ws-enable: false
 password: ""
-password-file: ""
+password-file: "/root/bee-pass.txt"
 payment-early: "1000000000000"
 payment-threshold: "10000000000000"
 payment-tolerance: "50000000000000"
@@ -73,8 +75,8 @@ welcome-message: ""
 
 echo 'Установка скрипта для обналичивания чеков'
 date "+【%Y-%m-%d %H:%M:%S】 'Установка скрипта для обналичивания чеков" 2>&1 | tee -a /root/run.log
-wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh $homedir/cashout.sh
-sudo chmod 777 $homedir/cashout.sh
+wget https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh /root/cashout.sh
+sudo chmod 777 /root/cashout.sh
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
@@ -95,7 +97,7 @@ Type=simple
 Restart=always
 RestartSec=60
 User=root
-ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml --password-file /root/bee-pass.txt
+ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
@@ -104,6 +106,7 @@ systemctl enable bee
 systemctl start bee
 
 echo -e "\e[42mУстановка завершена.\e[0m"; echo ''; echo 'Ваш пароль от ноды:' && cat /root/bee-pass.txt && echo '' && echo 'Хранится по пути: /root/bee-pass.txt'
-echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
+echo 'Пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22' && echo 'Ваш ETH кошелёк ноды: ' && curl -s localhost:1635/addresses | jq .ethereum
+echo ''
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
 
