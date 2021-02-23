@@ -75,6 +75,7 @@ tracing-service-name: bee
 verbosity: 3
 welcome-message: ""
 " >> $homedir/bee-default.yaml
+else date "+【%Y-%m-%d %H:%M:%S】 'Уже есть конфиг" 2>&1 | tee -a /root/run.log
 fi
 
 echo 'Установка скрипта для обналичивания чеков'
@@ -107,6 +108,7 @@ ExecStart=/usr/local/bin/bee start --config $homedir/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
 " >> /etc/systemd/system/bee.service
+else date "+【%Y-%m-%d %H:%M:%S】 'Уже есть сервис" 2>&1 | tee -a /root/run.log
 fi
 
 systemctl daemon-reload
