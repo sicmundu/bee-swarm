@@ -117,7 +117,7 @@ debug-api-enable: true
 gateway-mode: false
 global-pinning-enable: false
 help: false
-nat-addr: "${externalIp}"
+nat-addr: "${externalIp}:1634"
 network-id: "1"
 p2p-addr: :1634
 p2p-quic-enable: false
