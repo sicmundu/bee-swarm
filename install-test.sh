@@ -144,7 +144,7 @@ fi
 
 
 
-Install_main() {
+funtcion Install_main() {
 if [ ! -f $passdir ]; then
 date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
 echo "Введите пароль для ноды (он будет хранится тут $passdir):"
@@ -193,4 +193,4 @@ echo -e "инструкция по пополнению токенами https:/
 echo ''
 
 }
-Install_Main
+Install_Main()
