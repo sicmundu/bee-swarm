@@ -29,6 +29,7 @@ swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
 
+line='\e[4m'
 red='\e[91m'
 green='\e[92m'
 yellow='\e[93m'
@@ -40,6 +41,7 @@ _green() { echo -e ${green}$*${none}; }
 _yellow() { echo -e ${yellow}$*${none}; }
 _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
+_line() {echo -e ${line}$*${none}; }
 
 if [ $(id -u) != "0" ]; then
     echo "Ошибка: Вы должны быть {red}root{none}, чтобы запустить этот скрипт. (Введите: sudo su)"
@@ -165,7 +167,7 @@ echo 'Установка Bee Clef..'; sleep 2
 date "+【%Y-%m-%d %H:%M:%S】 Установка Bee Clef" 2>&1 | tee -a /root/run.log
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
-wget https://github.com/grodstrike/bee-swarm/raw/main/utils.sh
+wget https://github.com/doristeo/SwarmBeeBzzz/raw/main/local-dash.sh
 chmod +x utils.sh
 
 
@@ -175,18 +177,30 @@ getCashoutScript
 createSwarmService
 
 echo ''
+echo "
++----------------------------------------------------------------------"
 echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Пароль вашей ноды:' && cat $passPath && echo '' && echo 'Хранится по пути: '; echo $passPath
+echo "
++----------------------------------------------------------------------"
 echo ''
+echo "
++----------------------------------------------------------------------"
 echo 'Для активации ноды пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
+echo "
++----------------------------------------------------------------------"
 echo ''
 
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
 echo -e 'Показать логи \e[42mjournalctl -f -u bee\e[0m'
 sleep 10
-address="0x`cat ~/.bee/keys/swarm.key | jq '.address'|sed 's/\"//g'`" && echo ${address}
+address="0x`cat ~/.bee/keys/swarm.key | jq '.address'|sed 's/\"//g'`" && echo "Ваш кошелек ноды:" && echo '${line} ${address} ${none}'
+echo "
++----------------------------------------------------------------------"
 echo -e " Далее вам нужно пополнить баланс кошелька тестовыми токенами. Перейдите по ссылке https://discord.gg/r9sBAqnw и Перейдите в чат #faucet-request"
-echo -e " Введите \e[42msprinkle ${address}\e[0m"
-echo -e "инструкция по пополнению токенами https://telegra.ph/gbzz-geth-02-22"
+echo -e "и введите \e[42msprinkle ${address}\e[0m"
+echo -e "Инструкция по пополнению токенами https://telegra.ph/gbzz-geth-02-22"
+echo "
++----------------------------------------------------------------------"
 echo ''
 
 }
