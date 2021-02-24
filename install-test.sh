@@ -145,12 +145,12 @@ fi
 
 
 function Install_Main() {
-if [ ! -f $passdir ]; then
+if [ ! -f $passPath ]; then
 date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
-echo "Введите пароль для ноды (он будет хранится тут $passdir):"
+echo "Введите пароль для ноды (он будет хранится тут $passPath):"
 read  n
-echo  $n > $passdir;
-date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat $passdir  2>&1 | tee -a /root/run.log
+echo  $n > $passPath;
+date "+【%Y-%m-%d %H:%M:%S】 Ваш пароль от ноды: " && cat $passPath  2>&1 | tee -a /root/run.log
 fi
 
 echo 'Установка пакетов...'; sleep 2
