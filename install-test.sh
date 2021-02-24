@@ -168,7 +168,7 @@ date "+【%Y-%m-%d %H:%M:%S】 Установка Bee Clef" 2>&1 | tee -a /root/
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
 wget https://github.com/doristeo/SwarmBeeBzzz/raw/main/local-dash.sh
-chmod +x utils.sh
+chmod +x local-dash.sh
 
 
 
