@@ -141,9 +141,6 @@ else date "+【%Y-%m-%d %H:%M:%S】 Конфиг файл уже создан" 2
 fi
 }
 
-
-
-
 function Install_Main() {
 if [ ! -f $passPath ]; then
 date "+【%Y-%m-%d %H:%M:%S】 Генерация /root/bee-pass.txt" 2>&1 | tee -a /root/run.log
@@ -193,4 +190,5 @@ echo -e "инструкция по пополнению токенами https:/
 echo ''
 
 }
+
 Install_Main()
