@@ -94,13 +94,7 @@ systemctl restart crond
 
 }
 
-function make_Swap{
-$f=f
-fallocate -l $[f]G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-}
+
 
 createConfig(){
 date "+【%Y-%m-%d %H:%M:%S】 Создание конфига" 2>&1 | tee -a $logPath
