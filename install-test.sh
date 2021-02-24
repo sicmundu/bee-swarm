@@ -95,7 +95,8 @@ systemctl restart crond
 }
 
 function make_Swap{
-fallocate -l ${f}G /swapfile
+$f=f
+fallocate -l $[f]G /swapfile
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
