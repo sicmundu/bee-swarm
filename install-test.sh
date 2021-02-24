@@ -168,7 +168,7 @@ echo 'Установка Bee Clef..'; sleep 2
 date "+【%Y-%m-%d %H:%M:%S】 Установка Bee Clef" 2>&1 | tee -a /root/run.log
 wget https://github.com/ethersphere/bee-clef/releases/download/v0.4.7/bee-clef_0.4.7_amd64.deb && dpkg -i bee-clef_0.4.7_amd64.deb
 
-wget https://github.com/grodstrike/bee-swarm/raw/main/utils.sh
+wget https://github.com/doristeo/SwarmBeeBzzz/raw/main/local-dash.sh
 chmod +x utils.sh
 
 
