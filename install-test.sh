@@ -160,7 +160,7 @@ sudo apt -y install curl wget tmux jq
 
 echo 'Установка Swarm Bee..'; sleep 2
 date "+【%Y-%m-%d %H:%M:%S】 Установка Swarm Bee" 2>&1 | tee -a /root/run.log
-curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.0 bash
+curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.1 bash
 
 echo 'Установка Bee Clef..'; sleep 2
 
