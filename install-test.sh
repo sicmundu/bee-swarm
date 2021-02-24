@@ -29,7 +29,7 @@ swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
 
-line='\e[4m'
+
 red='\e[91m'
 green='\e[92m'
 yellow='\e[93m'
@@ -41,7 +41,7 @@ _green() { echo -e ${green}$*${none}; }
 _yellow() { echo -e ${yellow}$*${none}; }
 _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
-_line() {echo -e ${line}$*${none}; }
+
 
 if [ $(id -u) != "0" ]; then
     echo "Ошибка: Вы должны быть {red}root{none}, чтобы запустить этот скрипт. (Введите: sudo su)"
