@@ -10,9 +10,9 @@ echo "
 +----------------------------------------------------------------------
 | Установка Swarm Bee  для CentOS/Ubuntu/Debian
 +----------------------------------------------------------------------
-| Copyright © 2015-20021 https://t.me/ru_swarm All rights reserved.
+| Copyright © 2015-2021 All rights reserved.
 +----------------------------------------------------------------------
-|
+| https://t.me/ru_swarm Russian offical Swarm Bee TG
 +----------------------------------------------------------------------
 ";sleep 5
 
@@ -28,6 +28,7 @@ passPath='/root/bee-pass.txt'
 swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
+externalIp=$(wget -O - -q icanhazip.com)
 
 
 red='\e[91m'
@@ -116,7 +117,7 @@ debug-api-enable: true
 gateway-mode: false
 global-pinning-enable: false
 help: false
-nat-addr: ""
+nat-addr: "${externalIp}"
 network-id: "1"
 p2p-addr: :1634
 p2p-quic-enable: false
@@ -136,7 +137,7 @@ tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
 verbosity: 3
-welcome-message: ""
+welcome-message: "Hello from Russian Bees https://t.me/ru_swarm"
 EOF
 else date "+【%Y-%m-%d %H:%M:%S】 Конфиг файл уже создан" 2>&1 | tee -a $logPath
 fi
@@ -182,19 +183,13 @@ echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Па
 echo "
 +----------------------------------------------------------------------"
 echo ''
-
-echo 'Для активации ноды пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
-echo "
-+----------------------------------------------------------------------"
-echo ''
-
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
 echo -e 'Показать логи \e[42mjournalctl -f -u bee\e[0m'
 sleep 10
 address="0x`cat ~/.bee/keys/swarm.key | jq '.address'|sed 's/\"//g'`" && echo "Ваш кошелек ноды:" && echo ${address}
 echo "
 +----------------------------------------------------------------------"
-echo -e " Далее вам нужно пополнить баланс кошелька тестовыми токенами. Перейдите по ссылке https://discord.gg/r9sBAqnw и Перейдите в чат #faucet-request и введите \e[42msprinkle ${address}\e[0m"
+echo -e " Далее вам нужно пополнить баланс кошелька тестовыми токенами. Переходим по ссылке https://discord.gg/r9sBAqnw , далее переходим в чат #faucet-request и вводим \e[42msprinkle ${address}\e[0m"
 echo -e "Инструкция по пополнению токенами https://telegra.ph/gbzz-geth-02-22"
 echo "
 +----------------------------------------------------------------------"
