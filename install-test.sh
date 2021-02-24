@@ -19,7 +19,7 @@ echo "
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 LANG=ru_RU.UTF-8
-cd ~
+
 
 # пути к осноаным файлам
 logPath='/root/bee-run.log'
@@ -183,8 +183,7 @@ echo -e "\e[42mУстановка завершена!\e[0m"; echo ''; echo 'Па
 echo "
 +----------------------------------------------------------------------"
 echo ''
-echo "
-+----------------------------------------------------------------------"
+
 echo 'Для активации ноды пополните токенами по инструкции https://telegra.ph/gbzz-geth-02-22'
 echo "
 +----------------------------------------------------------------------"
@@ -193,11 +192,10 @@ echo ''
 echo -e 'Запущена ли нода? Проверьте командой \e[42msystemctl status bee\e[0m'
 echo -e 'Показать логи \e[42mjournalctl -f -u bee\e[0m'
 sleep 10
-address="0x`cat ~/.bee/keys/swarm.key | jq '.address'|sed 's/\"//g'`" && echo "Ваш кошелек ноды:" && echo '${line} ${address} ${none}'
+address="0x`cat ~/.bee/keys/swarm.key | jq '.address'|sed 's/\"//g'`" && echo "Ваш кошелек ноды:" && echo ${address}
 echo "
 +----------------------------------------------------------------------"
-echo -e " Далее вам нужно пополнить баланс кошелька тестовыми токенами. Перейдите по ссылке https://discord.gg/r9sBAqnw и Перейдите в чат #faucet-request"
-echo -e "и введите \e[42msprinkle ${address}\e[0m"
+echo -e " Далее вам нужно пополнить баланс кошелька тестовыми токенами. Перейдите по ссылке https://discord.gg/r9sBAqnw и Перейдите в чат #faucet-request и введите \e[42msprinkle ${address}\e[0m"
 echo -e "Инструкция по пополнению токенами https://telegra.ph/gbzz-geth-02-22"
 echo "
 +----------------------------------------------------------------------"
