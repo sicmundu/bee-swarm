@@ -2,7 +2,7 @@
 #
 # Скрипт установки Swarm Bee node
 #
-# Check if user is root
+#
 #
 # thanks to root#2682
 
@@ -42,7 +42,6 @@ _yellow() { echo -e ${yellow}$*${none}; }
 _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
 
-
 if [ $(id -u) != "0" ]; then
     echo "Ошибка: Вы должны быть {red}root{none}, чтобы запустить этот скрипт. (Введите: sudo su)"
     exit 1
@@ -80,7 +79,7 @@ if [ ! -f $cashScriptPath ]; then
 date "+【%Y-%m-%d %H:%M:%S】 Установка скрипта для обналичивания чеков" 2>&1 | tee -a $logPath
 echo 'Установка скрипта для обналичивания чеков';sleep 2
 
-wget -O $cashScriptPath https://gist.githubusercontent.com/ralph-pichler/3b5ccd7a5c5cd0500e6428752b37e975/raw/7ba05095e0836735f4a648aefe52c584e18e065f/cashout.sh && chmod a+x $cashScriptPath
+wget -O $cashScriptPath https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh && chmod a+x $cashScriptPath
 else
 date "+【%Y-%m-%d %H:%M:%S】 '$cashScriptPath' Файл уже есть" 2>&1 | tee -a $logPath
 fi
