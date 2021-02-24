@@ -63,8 +63,8 @@ ExecStart=/usr/local/bin/bee start --config ${homedir}/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
 EOE
-	echo 'Сервис уже установлен'
-	else date "+【%Y-%m-%d %H:%M:%S】 Сервис уже установлен" 2>&1 | tee -a $logPath
+echo 'Сервис уже установлен'
+else date "+【%Y-%m-%d %H:%M:%S】 Сервис уже установлен" 2>&1 | tee -a $logPath
 fi
 
 systemctl daemon-reload
