@@ -62,6 +62,8 @@ Restart=always
 RestartSec=60
 User=root
 ExecStart=/usr/local/bin/bee start --config ${homedir}/bee-default.yaml
+StandardOutput=append:/var/log/bee.log
+StandartError=append:/var/log/bee-err.log
 [Install]
 WantedBy=multi-user.target
 EOF
