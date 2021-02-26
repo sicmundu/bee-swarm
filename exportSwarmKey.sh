@@ -49,9 +49,17 @@ Install_Main() {
 	fi
 	apt install gcc
 	export PATH=$PATH:/usr/local/go/bin
-	wget main.go https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
-	wget go.mod https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
-	wget go.sum https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
+	if [! -f main.go]; then
+		wget main.go https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
+	fi
+	if [! -f go.mod]; then
+		wget go.mod https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
+	fi
+	if [! -f go.sum]; then
+		wget go.sum https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
+	fi
+
+
 	echo 'Версия Go: '; go version
 	mkdir /root/bee-keys/
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
