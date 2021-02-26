@@ -35,7 +35,7 @@ else
 fi
 
 Install_Main() {
-	if [ ! -f /usr/local/go ]; then
+	if [ ! -f /usr/local/go/ ]; then
 		wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
 		tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
 		export PATH=$PATH:/usr/local/go/bin
@@ -43,6 +43,7 @@ Install_Main() {
 	else
 		echo 'Уже установлена Go-lang!'
 	fi
+	export PATH=$PATH:/usr/local/go/bin
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
@@ -51,7 +52,7 @@ Install_Main() {
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
 	echo "Введите пароль для ноды:"
 	read  n
-	go run main.go /root/bee-keys/swarm.key $n > key_tmp.json
+	go run main.go /root/bee-keys/ $n > key_tmp.json
 	sed 's/^[^{]*//' key_tmp.json > key.json
 	rm key_tmp.json
 	echo 'Ваш кошелёк: '; echo cat key.json | jq '.address'
