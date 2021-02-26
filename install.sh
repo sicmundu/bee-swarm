@@ -8,7 +8,7 @@
 
 echo "
 +----------------------------------------------------------------------
-| Установка Swarm Bee  для CentOS/Ubuntu/Debian
+| Установка Swarm Bee  для Ubuntu/Debian
 +----------------------------------------------------------------------
 | Copyright © 2015-2021 All rights reserved.
 +----------------------------------------------------------------------
@@ -51,7 +51,7 @@ fi
 createSwarmService(){
     date "+【%Y-%m-%d %H:%M:%S】 Installing the Swarm Bee service" 2>&1 | tee -a $logPath
 	if [ ! -f /etc/systemd/system/bee.service ]; then
-	cat >> /etc/systemd/system/bee.service << EOE
+	cat >> /etc/systemd/system/bee.service << EOF
 [Unit]
 Description=Bee Bzz Bzzzzz service
 After=network.target
@@ -64,7 +64,7 @@ User=root
 ExecStart=/usr/local/bin/bee start --config ${homedir}/bee-default.yaml
 [Install]
 WantedBy=multi-user.target
-EOE
+EOF
 echo 'Сервис уже установлен'
 else date "+【%Y-%m-%d %H:%M:%S】 Сервис уже установлен" 2>&1 | tee -a $logPath
 fi
@@ -88,7 +88,7 @@ fi
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "*/60 * * * * /bin/bash $cashScriptPath cashout-all >> $cashlogPath >/dev/null 2>&1" >> mycron
+echo "*/60 * * * * /bin/bash $cashScriptPath cashout-all >> $cashlogPath 2>&1" >> mycron
 #install new cron file
 crontab mycron
 rm -f mycron

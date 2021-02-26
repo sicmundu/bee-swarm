@@ -29,7 +29,7 @@ swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
 externalIp=$(wget -O - -q icanhazip.com)
-
+version='0.5.1'
 
 red='\e[91m'
 green='\e[92m'
@@ -88,7 +88,7 @@ fi
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "*/60 * * * * /bin/bash $cashScriptPath cashout-all >> $cashlogPath >/dev/null 2>&1" >> mycron
+echo "*/60 * * * * /bin/bash $cashScriptPath cashout-all >> $cashlogPath 2>&1" >> mycron
 #install new cron file
 crontab mycron
 rm -f mycron
@@ -160,7 +160,7 @@ sudo apt -y install curl wget tmux jq
 
 echo 'Установка Swarm Bee..'; sleep 2
 date "+【%Y-%m-%d %H:%M:%S】 Установка Swarm Bee" 2>&1 | tee -a /root/run.log
-curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v0.5.1 bash
+curl -s https://raw.githubusercontent.com/ethersphere/bee/master/install.sh | TAG=v${version} bash
 
 echo 'Установка Bee Clef..'; sleep 2
 
