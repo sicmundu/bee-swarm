@@ -35,7 +35,10 @@ else
 fi
 
 Install_Main() {
-	rm key.json
+	if [! -f key.json]; then
+		rm key.json
+	fi
+
 	if [ ! -d /usr/local/go/ ]; then
 		wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
 		tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
