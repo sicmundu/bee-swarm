@@ -44,6 +44,7 @@ Install_Main() {
 	else
 		echo 'Уже установлена Go-lang!'
 	fi
+	apt install gcc
 	export PATH=$PATH:/usr/local/go/bin
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
@@ -57,8 +58,8 @@ Install_Main() {
 	go run main.go /root/bee-keys/ $n > key_tmp.json
 	sed 's/^[^{]*//' key_tmp.json > key.json
 	rm key_tmp.json
-	echo 'Ваш кошелёк: '; echo cat key.json | jq '.address'
-	echo 'Ваш приватный ключ для экспорта: '; echo cat key.json | jq '.privatekey'
+	echo 'Ваш кошелёк: '; cat key.json | jq '.address'
+	echo 'Ваш приватный ключ для экспорта: '; cat key.json | jq '.privatekey'
 	echo 'Файл приватного ключа создан! key.json'
 }
 Install_Main
