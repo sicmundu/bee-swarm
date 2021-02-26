@@ -48,6 +48,7 @@ if [ $(id -u) != "0" ]; then
     exit 1
 fi
 
+# Функция установки Bee в сервис
 createSwarmService(){
     date "+【%Y-%m-%d %H:%M:%S】 Installing the Swarm Bee service" 2>&1 | tee -a $logPath
 	if [ ! -f /etc/systemd/system/bee.service ]; then
@@ -71,22 +72,31 @@ echo 'Сервис уже установлен'
 else date "+【%Y-%m-%d %H:%M:%S】 Сервис уже установлен" 2>&1 | tee -a $logPath
 fi
 
+# Перезапуск сервисов
 systemctl daemon-reload
+
+# Добавление ноды в автозапуск
 systemctl enable bee
+
+# Запуск ноды
 systemctl start bee
 }
 
+
+# Функция установки скрипта для обналичивания чеков
 getCashoutScript(){
 
 if [ ! -f $cashScriptPath ]; then
 date "+【%Y-%m-%d %H:%M:%S】 Установка скрипта для обналичивания чеков" 2>&1 | tee -a $logPath
 echo 'Установка скрипта для обналичивания чеков';sleep 2
 
+# Скачивание скрипта
 wget -O $cashScriptPath https://github.com/grodstrike/bee-swarm/raw/main/cashout.sh && chmod a+x $cashScriptPath
 else
 date "+【%Y-%m-%d %H:%M:%S】 '$cashScriptPath' Файл уже есть" 2>&1 | tee -a $logPath
 fi
 
+# Добавление в cron скрипта
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
