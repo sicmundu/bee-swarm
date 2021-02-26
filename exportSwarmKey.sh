@@ -35,14 +35,19 @@ else
 fi
 
 Install_Main() {
-	wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
-	tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
-	export PATH=$PATH:/usr/local/go/bin
+	if [ ! -f /usr/local/go ]; then
+		wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
+		tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
+		export PATH=$PATH:/usr/local/go/bin
+
+	else
+		echo 'Уже установлена Go-lang!'
+	fi
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
 	echo 'Версия Go: '; go version
-	mdkir /root/bee-keys/
+	mkdir /root/bee-keys/
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
 	echo "Введите пароль для ноды:"
 	read  n
