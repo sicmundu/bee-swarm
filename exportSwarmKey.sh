@@ -63,7 +63,7 @@ Install_Main() {
 	echo 'Версия Go: '; go version
 	mkdir /root/bee-keys/
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
-	echo "Введите пароль для ноды:"
+	echo "Введите пароль от ноды:"
 	read  n
 	echo 'Создание приватного ключа...'
 	go run main.go /root/bee-keys/ $n > key_tmp.json
