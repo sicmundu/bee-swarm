@@ -42,5 +42,15 @@ Install_Main() {
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
 	wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
 	echo 'Версия Go: '; go version
-
+	mdkir /root/bee-keys/
+	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
+	echo "Введите пароль для ноды:"
+	read  n
+	go run main.go /root/bee-keys/swarm.key $n > key_tmp.json
+	sed 's/^[^{]*//' key_tmp.json > key.json
+	rm key_tmp.json
+	echo 'Ваш кошелёк: '; echo cat key.json | jq '.address'
+	echo 'Ваш приватный ключ для экспорта: '; echo cat key.json | jq '.privatekey'
+	echo 'Файл приватного ключа создан! key.json'
 }
+Install_Main
