@@ -14,9 +14,7 @@ echo "
 +----------------------------------------------------------------------
 ";sleep 5
 PM="apt-get"
-file1='main.go'
-file2='go.sum'
-file3='go.mod'
+
 
 
 if [ $(id -u) != "0" ]; then
@@ -48,15 +46,9 @@ Install_Main() {
 	fi
 	apt install gcc
 	export PATH=$PATH:/usr/local/go/bin
-	for (( i=1; i<3; i++ ))
-		do
-			if [! -f ${file${i}}]; then
-				wget https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/${file${i}}
-			fi
-	done
-
-
-
+	wget main.go https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
+	wget go.mod https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
+	wget go.sum https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
 	echo 'Версия Go: '; go version
 	mkdir /root/bee-keys/
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
