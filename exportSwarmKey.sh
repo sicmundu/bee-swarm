@@ -35,6 +35,7 @@ else
 fi
 
 Install_Main() {
+	rm key.json
 	if [ ! -f /usr/local/go/ ]; then
 		wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
 		tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
@@ -52,6 +53,7 @@ Install_Main() {
 	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
 	echo "Введите пароль для ноды:"
 	read  n
+	echo 'Создание приватного ключа...'
 	go run main.go /root/bee-keys/ $n > key_tmp.json
 	sed 's/^[^{]*//' key_tmp.json > key.json
 	rm key_tmp.json

@@ -44,7 +44,7 @@ _magenta() { echo -e ${magenta}$*${none}; }
 _cyan() { echo -e ${cyan}$*${none}; }
 
 if [ $(id -u) != "0" ]; then
-    echo "Ошибка: Вы должны быть {red}root{none}, чтобы запустить этот скрипт. (Введите: sudo su)"
+    echo "Ошибка: Вы должны быть root, чтобы запустить этот скрипт. (Введите: sudo su)"
     exit 1
 fi
 
