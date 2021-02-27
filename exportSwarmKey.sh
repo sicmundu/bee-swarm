@@ -22,51 +22,22 @@ if [ $(id -u) != "0" ]; then
     exit 1
 fi
 
-# check os
-if [[ $(command -v apt-get) || $(command -v yum) ]] && [[ $(command -v systemctl) ]]; then
-	if [[ $(command -v yum) ]]; then
-		PM="yum"
-	fi
-else
-	echo -e "
-	This scripts does not support your system.
-	Note: Only support Ubuntu 16+ / Debian 8+ / CentOS 7+ system
-	" && exit 1
-fi
 
 Install_Main() {
-	if [! -f key.json]; then
+	if [ -f key.json]; then
 		rm key.json
 	fi
+	wget exportSwarmKey https://github.com/grodstrike/bee-swarm/raw/main/exportSwarmKey
 
-	if [ ! -d /usr/local/go/ ]; then
-		wget https://golang.org/dl/go1.16.linux-amd64.tar.gz
-		tar -C /usr/local -xzf go1.16.linux-amd64.tar.gz
-		export PATH=$PATH:/usr/local/go/bin
-
-	else
-		echo 'Уже установлена Go-lang!'
-	fi
-	apt install gcc
-	export PATH=$PATH:/usr/local/go/bin
-	if [! -f main.go]; then
-		wget main.go https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/pkg/main.go
-	fi
-	if [! -f go.mod]; then
-		wget go.mod https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.mod
-	fi
-	if [! -f go.sum]; then
-		wget go.sum https://raw.githubusercontent.com/ethersphere/exportSwarmKey/master/go.sum
-	fi
-
-
-	echo 'Версия Go: '; go version
-	mkdir /root/bee-keys/
-	find / -name "swarm.key" -exec cp {} /root/bee-keys/ \;
 	echo "Введите пароль от ноды:"
 	read  n
 	echo 'Создание приватного ключа...'
-	go run main.go /root/bee-keys/ $n > key_tmp.json
+
+
+	mkdir /root/bee-keys/
+	cp /root/.bee/keys/swarm.key /root/bee-keys/swarm.key
+	./exportSwarmKey /root/bee-keys/ $n > key_tmp.json
+	rm /root/bee-keys/swarm.key
 	sed 's/^[^{]*//' key_tmp.json > key.json
 	rm key_tmp.json
 	echo 'Ваш кошелёк: '; cat key.json | jq '.address'
