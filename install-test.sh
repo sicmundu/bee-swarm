@@ -106,7 +106,7 @@ cat >> $homedir/bee-default.yaml << EOF
 api-addr: :1633
 bootnode:
 - /dnsaddr/bootnode.ethswarm.org
-clef-signer-enable: false
+clef-signer-enable: true
 clef-signer-endpoint: ""
 config: /root/.bee.yaml
 cors-allowed-origins: []
