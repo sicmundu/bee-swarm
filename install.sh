@@ -23,7 +23,7 @@ LANG=ru_RU.UTF-8
 
 # пути к осноаным файлам
 logPath='/root/bee-run.log'
-cashlogPath='/root/bee-cash.log'
+cashlogPath='/root/cash.log'
 passPath='/root/bee-pass.txt'
 swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'

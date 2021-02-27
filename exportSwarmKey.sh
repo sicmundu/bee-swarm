@@ -28,7 +28,7 @@ Install_Main() {
 		rm key.json
 	fi
 	wget exportSwarmKey https://github.com/grodstrike/bee-swarm/raw/main/exportSwarmKey
-
+	chmod +x exportSwarmKey
 	echo "Введите пароль от ноды:"
 	read  n
 	echo 'Создание приватного ключа...'
