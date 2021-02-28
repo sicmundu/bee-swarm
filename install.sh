@@ -28,7 +28,7 @@ passPath='/root/bee-pass.txt'
 swapEndpoint='https://goerli.prylabs.net'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
-externalIp=$(wget -O - -q icanhazip.com)
+externalIp=$(curl -4 ifconfig.io)
 
 
 red='\e[91m'
