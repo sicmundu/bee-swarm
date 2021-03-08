@@ -101,7 +101,7 @@ fi
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "*/30 * * * * /bin/bash $cashScriptPath cashout-all >> $cashlogPath 2>&1" >> mycron
+echo "0 */12 * * *  /bin/bash $cashScriptPath cashout-all >> $cashlogPath 2>&1" >> mycron
 #install new cron file
 crontab mycron
 rm -f mycron
