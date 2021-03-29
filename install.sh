@@ -25,7 +25,7 @@ LANG=ru_RU.UTF-8
 logPath='/root/bee-run.log'
 cashlogPath='/root/cash.log'
 passPath='/root/bee-pass.txt'
-swapEndpoint='https://goerli.prylabs.net'
+swapEndpoint='https://rpc.slock.it/goerli'
 cashScriptPath='/root/cashout.sh'
 homedir=$HOME
 externalIp=$(curl -4 ifconfig.io)
@@ -149,7 +149,7 @@ swap-initial-deposit: "100000000000000000"
 tracing-enable: false
 tracing-endpoint: 127.0.0.1:6831
 tracing-service-name: bee
-verbosity: 3
+verbosity: 2
 welcome-message: "Hello from Russian Bees https://t.me/ru_swarm"
 EOF
 else date "+【%Y-%m-%d %H:%M:%S】 Конфиг файл уже создан" 2>&1 | tee -a $logPath
